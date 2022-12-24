@@ -61,16 +61,20 @@ public class CityService {
     }
 
 
-    public static final Comparator<City> BY_NAME_DESCENDING_CASE_INSENSITIVE_ORDER =
+    public static final Comparator<City> BY_NAME_CASE_INSENSITIVE_ORDER =
             (c1, c2) -> c2.getName().compareToIgnoreCase(c1.getName());
 
-    public static final Comparator<City> BY_NAME_AND_DISTRICT_DESCENDING_ORDER =
+
+    public static final Comparator<City> BY_DISTRICT_AND_NAME =
             (c1, c2) ->
             {
-                int nameCmp = c2.getName().compareTo(c1.getName());
-                int districtCmp = c2.getDistrict().compareTo(c1.getDistrict());
-                return nameCmp == 0 ? districtCmp : nameCmp;
+                int nameCmp = c1.getName().compareTo(c2.getName());
+                int districtCmp = c1.getDistrict().compareTo(c2.getDistrict());
+                return districtCmp == 0 ? nameCmp : districtCmp;
             };
+
+    public static final Comparator<City> BY_DISTRICT_AND_NAME1 =
+            Comparator.comparing(City::getDistrict).thenComparing(City::getName);
 
     public static void sort(List<City> cities, Comparator<City> c) {
         cities.sort(c);

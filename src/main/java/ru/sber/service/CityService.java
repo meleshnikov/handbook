@@ -80,4 +80,33 @@ public class CityService {
         cities.sort(c);
     }
 
+    private static int getMaxPopulationIndex(List<City> cities) {
+        Objects.requireNonNull(cities);
+        int max = -1;
+        int index = -1;
+        for (int i = 0; i < cities.size(); i++) {
+            int population = cities.get(i).getPopulation();
+            if (population > max) {
+                max = population;
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public static void printMaxPopulation(List<City> cities) {
+        if (cities != null && !cities.isEmpty()) {
+            int index = getMaxPopulationIndex(cities);
+            int population = cities.get(index).getPopulation();
+            System.out.printf("[%d] = %d%n", index, population);
+        }
+    }
+
+
+    public static int getMaxPopulation(List<City> cities) {
+        Objects.requireNonNull(cities);
+        return cities.stream().mapToInt(City::getPopulation).max().orElse(0);
+    }
+
+
 }

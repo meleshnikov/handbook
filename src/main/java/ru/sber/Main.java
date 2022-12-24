@@ -14,14 +14,9 @@ public class Main {
     public static void main(String[] args) {
         List<City> cities = parse(FILE_PATH, DELIMITER);
 
-        sort(cities, BY_NAME_CASE_INSENSITIVE_ORDER);
-        print(cities);
+        printMaxPopulation(cities);
 
-        sort(cities, BY_DISTRICT_AND_NAME);
-        print(cities);
-
-        sort(cities, BY_DISTRICT_AND_NAME1);
-        print(cities);
+        System.out.println(getMaxPopulation(cities));
     }
 
 }

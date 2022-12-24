@@ -1,7 +1,10 @@
 package ru.sber;
 
-import static ru.sber.service.CityService.parse;
-import static ru.sber.service.CityService.print;
+import ru.sber.model.City;
+
+import java.util.List;
+
+import static ru.sber.service.CityService.*;
 
 public class Main {
 
@@ -9,7 +12,12 @@ public class Main {
     private static final String DELIMITER = ";";
 
     public static void main(String[] args) {
-        print(parse(FILE_PATH, DELIMITER));
+        List<City> cities = parse(FILE_PATH, DELIMITER);
+        print(cities);
+        sort(cities, BY_NAME_DESCENDING_CASE_INSENSITIVE_ORDER);
+        print(cities);
+        sort(cities, BY_NAME_AND_DISTRICT_DESCENDING_ORDER);
+        print(cities);
     }
 
 }

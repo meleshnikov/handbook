@@ -5,10 +5,7 @@ import ru.sber.model.City;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class CityService {
 
@@ -61,6 +58,22 @@ public class CityService {
     private static int parseYear(String s) {
         int y = Integer.parseInt(s.replaceAll("\\D+", ""));
         return s.endsWith("век") ? y * 100 : y;
+    }
+
+
+    public static final Comparator<City> BY_NAME_DESCENDING_CASE_INSENSITIVE_ORDER =
+            (c1, c2) -> c2.getName().compareToIgnoreCase(c1.getName());
+
+    public static final Comparator<City> BY_NAME_AND_DISTRICT_DESCENDING_ORDER =
+            (c1, c2) ->
+            {
+                int nameCmp = c2.getName().compareTo(c1.getName());
+                int districtCmp = c2.getDistrict().compareTo(c1.getDistrict());
+                return nameCmp == 0 ? districtCmp : nameCmp;
+            };
+
+    public static void sort(List<City> cities, Comparator<City> c) {
+        cities.sort(c);
     }
 
 }

@@ -14,9 +14,7 @@ public class Main {
     public static void main(String[] args) {
         List<City> cities = parse(FILE_PATH, DELIMITER);
 
-        printMaxPopulation(cities);
-
-        System.out.println(getMaxPopulation(cities));
+        printCitiesCountByRegion(cities);
     }
 
 }

@@ -108,5 +108,22 @@ public class CityService {
         return cities.stream().mapToInt(City::getPopulation).max().orElse(0);
     }
 
+    public static void printCitiesCountByRegion(List<City> cities) {
+        citiesCountByRegion(cities).forEach((k, v) -> System.out.printf("%s - %d%n", k, v));
+    }
+
+    private static Map<String, Integer> citiesCountByRegion(List<City> cities) {
+        Map<String, Integer> map = new HashMap<>();
+        for (City city : cities) {
+            String key = city.getRegion();
+            if (!map.containsKey(key)) {
+                map.put(key, 1);
+            } else {
+                int value = map.get(key);
+                map.put(key, ++value);
+            }
+        }
+        return map;
+    }
 
 }

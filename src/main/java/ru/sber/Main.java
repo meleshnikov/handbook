@@ -13,8 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         List<City> cities = parse(FILE_PATH, DELIMITER);
-
-        printCitiesCountByRegion(cities);
+        citiesCountByRegionV1(cities);
+        citiesCountByRegionV2(cities);
     }
-
 }

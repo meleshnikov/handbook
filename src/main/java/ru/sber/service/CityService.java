@@ -4,6 +4,7 @@ import ru.sber.model.City;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -108,22 +109,23 @@ public class CityService {
         return cities.stream().mapToInt(City::getPopulation).max().orElse(0);
     }
 
-    public static void printCitiesCountByRegion(List<City> cities) {
-        citiesCountByRegion(cities).forEach((k, v) -> System.out.printf("%s - %d%n", k, v));
-    }
 
-    private static Map<String, Integer> citiesCountByRegion(List<City> cities) {
-        Map<String, Integer> map = new HashMap<>();
+    public static void citiesCountByRegionV1(List<City> cities) {
+        Map<String, Integer> regions = new HashMap<>();
         for (City city : cities) {
-            String key = city.getRegion();
-            if (!map.containsKey(key)) {
-                map.put(key, 1);
+            if (!regions.containsKey(city.getRegion())) {
+                regions.put(city.getRegion(), 1);
             } else {
-                int value = map.get(key);
-                map.put(key, ++value);
+                regions.put(city.getRegion(), regions.get(city.getRegion()) + 1);
             }
         }
-        return map;
+        regions.forEach((k, v) -> System.out.printf("%s - %d%n", k, v));
+    }
+
+    public static void citiesCountByRegionV2(List<City> cities) {
+        Map<String, Integer> regions = new HashMap<>();
+        cities.forEach(city -> regions.merge(city.getRegion(), 1, Integer::sum));
+        regions.forEach((k, v) -> System.out.println(MessageFormat.format(" {0} = {1}", k, v)));
     }
 
 }
